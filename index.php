@@ -2,6 +2,7 @@
 /**
  * Red Taxis App - Public Download & Landing Page
  * -------------------------------------------------------------------------
+ * Light, compact, responsive, and professional UI using Roboto.
  */
 require_once __DIR__ . '/config.php';
 
@@ -16,28 +17,33 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($meta['app_name']) ?> - Download Official Android App</title>
+    <title><?= htmlspecialchars($meta['app_name']) ?> - Official Android App Download</title>
     <meta name="description" content="Download the latest <?= htmlspecialchars($meta['app_name']) ?> APK for Android. Fast, reliable, and secure taxi bookings at your fingertips.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- QRCode generator library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <style>
         :root {
-            --primary: #ef4444;
-            --primary-hover: #dc2626;
-            --primary-glow: rgba(239, 68, 68, 0.35);
-            --bg-dark: #0a0c14;
-            --bg-card: #131722;
-            --bg-card-hover: #191e2e;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-green: #10b981;
-            --accent-amber: #f59e0b;
+            --primary: #dc2626;
+            --primary-hover: #b91c1c;
+            --primary-light: #fef2f2;
+            --primary-border: #fca5a5;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-sub: #64748b;
+            --accent-green: #059669;
+            --green-light: #ecfdf5;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --radius-md: 10px;
+            --radius-lg: 14px;
         }
 
         * {
@@ -47,218 +53,214 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-page);
             color: var(--text-main);
             min-height: 100vh;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 15%, rgba(239, 68, 68, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(220, 38, 38, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.5) 0%, transparent 100%);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 1160px;
+            max-width: 980px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 16px;
         }
 
         /* Top Navigation */
         nav {
-            padding: 24px 0;
+            padding: 12px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
+            background: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 10px;
             text-decoration: none;
-            color: inherit;
+            color: var(--text-main);
         }
 
         .brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #ef4444, #991b1b);
-            border-radius: 12px;
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 16px var(--primary-glow);
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
         }
 
         .brand-name {
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #ffffff, #cbd5e1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: #0f172a;
         }
 
         .admin-link {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
-            transition: all 0.2s ease;
+            background: #ffffff;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .admin-link:hover {
-            color: #fff;
-            border-color: rgba(255, 255, 255, 0.25);
-            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            border-color: var(--primary-border);
+            background: var(--primary-light);
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 70px 0 50px;
+        /* Hero Main Layout */
+        .hero-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 48px;
+            grid-template-columns: 1.4fr 0.8fr;
+            gap: 24px;
             align-items: center;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 900px) {
-            .hero {
+        @media (max-width: 768px) {
+            .hero-box {
                 grid-template-columns: 1fr;
-                padding: 40px 0;
-                text-align: center;
-            }
-            .hero-left {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+                padding: 20px 16px;
+                gap: 20px;
             }
         }
 
         .badge-verified {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.12);
+            gap: 6px;
+            background: var(--green-light);
             color: var(--accent-green);
-            padding: 6px 14px;
+            padding: 3px 10px;
             border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 700;
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            margin-bottom: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid #a7f3d0;
+            margin-bottom: 10px;
         }
 
         .badge-verified svg {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
         }
 
         h1 {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.25;
+            color: #0f172a;
+            margin-bottom: 6px;
         }
 
-        .gradient-text {
-            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .app-highlight {
+            color: var(--primary);
         }
 
         .hero-desc {
-            font-size: 18px;
+            font-size: 14px;
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 32px;
-            max-width: 540px;
+            margin-bottom: 18px;
+            line-height: 1.45;
         }
 
-        /* Meta Pills Grid */
+        /* Compact Metadata Grid */
         .meta-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 36px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 600px) {
             .meta-grid {
-                justify-content: center;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         .meta-pill {
-            background: rgba(255, 255, 255, 0.04);
+            background: #f1f5f9;
             border: 1px solid var(--border-color);
-            padding: 10px 16px;
-            border-radius: 12px;
+            padding: 8px 10px;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
-            gap: 2px;
-            backdrop-filter: blur(8px);
+            gap: 1px;
         }
 
         .meta-pill .label {
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--text-sub);
+            font-weight: 500;
         }
 
         .meta-pill .value {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            color: #fff;
+            color: #1e293b;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Download Action Buttons */
-        .download-actions {
+        /* Actions */
+        .actions-group {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            width: 100%;
-            max-width: 480px;
+            gap: 10px;
         }
 
         .btn-download {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            gap: 10px;
+            background: var(--primary);
             color: #ffffff;
             text-decoration: none;
-            padding: 18px 32px;
-            border-radius: 16px;
-            font-size: 18px;
-            font-weight: 800;
-            box-shadow: 0 10px 25px var(--primary-glow);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.25);
+            transition: background 0.15s ease, transform 0.1s ease;
             border: none;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.5);
-            background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+            background: var(--primary-hover);
+            transform: translateY(-1px);
         }
 
         .btn-download:active {
@@ -266,40 +268,40 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         }
 
         .btn-download svg {
-            width: 26px;
-            height: 26px;
+            width: 20px;
+            height: 20px;
         }
 
         .btn-download .btn-badge {
-            background: rgba(0, 0, 0, 0.25);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-left: 6px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
         }
 
         .btn-disabled {
-            background: #334155 !important;
+            background: #cbd5e1 !important;
+            color: #64748b !important;
             box-shadow: none !important;
             cursor: not-allowed;
-            opacity: 0.7;
+            transform: none !important;
         }
 
-        /* Copy Link Bar */
+        /* Copy Link Box */
         .copy-link-box {
             display: flex;
             align-items: center;
-            background: var(--bg-card);
+            background: #f8fafc;
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 6px 6px 6px 14px;
-            gap: 10px;
+            border-radius: 8px;
+            padding: 4px 4px 4px 10px;
+            gap: 8px;
         }
 
         .copy-link-text {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12px;
             color: var(--text-muted);
             white-space: nowrap;
             overflow: hidden;
@@ -308,46 +310,45 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         }
 
         .btn-copy {
-            background: rgba(255, 255, 255, 0.08);
+            background: #ffffff;
             border: 1px solid var(--border-color);
-            color: #fff;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
+            color: var(--text-main);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
+            transition: all 0.15s;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             flex-shrink: 0;
         }
 
         .btn-copy:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: #f1f5f9;
+            border-color: #cbd5e1;
         }
 
-        /* Hero Right Card (QR & Device Showcase) */
-        .hero-card {
-            background: var(--bg-card);
+        /* QR Showcase Card */
+        .qr-card {
+            background: #f8fafc;
             border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 32px;
+            border-radius: var(--radius-md);
+            padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            position: relative;
-            backdrop-filter: blur(12px);
         }
 
         .qr-wrapper {
             background: #ffffff;
-            padding: 16px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -358,139 +359,162 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             display: block;
         }
 
-        .qr-caption {
+        .qr-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+
+        .qr-desc {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
+        /* Section Cards */
+        .section-header {
             font-size: 15px;
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 4px;
-        }
-
-        .qr-sub {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        /* Section Titles */
-        .section-title {
-            font-size: 26px;
-            font-weight: 800;
-            margin-bottom: 24px;
+            color: #0f172a;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 6px;
         }
 
-        .section-title svg {
+        .section-header svg {
             color: var(--primary);
         }
 
-        /* Cards Grid */
-        .steps-grid {
+        /* Steps Layout (Compact Row) */
+        .steps-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
-        .step-card {
+        @media (max-width: 650px) {
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .step-item {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 28px 24px;
-            position: relative;
-            transition: transform 0.2s, border-color 0.2s;
+            border-radius: var(--radius-md);
+            padding: 14px;
+            box-shadow: var(--shadow-sm);
         }
 
-        .step-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        .step-num {
-            width: 36px;
-            height: 36px;
-            background: rgba(239, 68, 68, 0.15);
+        .step-badge {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-light);
             color: var(--primary);
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
-        }
-
-        .step-card h3 {
-            font-size: 18px;
-            font-weight: 700;
             margin-bottom: 8px;
+            border: 1px solid #fecaca;
         }
 
-        .step-card p {
+        .step-item h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #0f172a;
+        }
+
+        .step-item p {
+            font-size: 12px;
             color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.45;
         }
 
         /* Changelog Box */
-        .changelog-box {
+        .info-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 28px;
-            margin-bottom: 60px;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
         }
 
-        .changelog-header {
+        .info-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 16px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color);
         }
 
+        .info-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .info-date {
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+
         .changelog-text {
-            color: #cbd5e1;
-            font-size: 14px;
-            line-height: 1.7;
+            font-size: 13px;
+            color: #334155;
+            line-height: 1.55;
             white-space: pre-line;
+        }
+
+        .hash-bar {
+            margin-top: 12px;
+            font-size: 11px;
+            font-family: 'Roboto Mono', monospace;
+            color: #475569;
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            padding: 6px 10px;
+            border-radius: 6px;
+            word-break: break-all;
         }
 
         /* Footer */
         footer {
             border-top: 1px solid var(--border-color);
-            padding: 30px 0;
-            color: var(--text-muted);
-            font-size: 14px;
+            padding: 16px 0;
+            color: var(--text-sub);
+            font-size: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 8px;
         }
 
         /* Toast Alert */
         #toast {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #1e293b;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 14px;
+            bottom: 20px;
+            right: 20px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            font-size: 13px;
+            font-weight: 500;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(10px);
+            transition: all 0.2s ease;
             pointer-events: none;
-            z-index: 999;
+            z-index: 1000;
         }
 
         #toast.show {
@@ -501,12 +525,12 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
 </head>
 <body>
 
-    <div class="container">
-        <!-- Navigation -->
-        <nav>
+    <!-- Top Navigation -->
+    <nav>
+        <div class="container">
             <a href="index.php" class="brand">
                 <div class="brand-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
                         <circle cx="7" cy="17" r="2"></circle>
                         <path d="M9 17h6"></path>
@@ -515,19 +539,19 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
                 </div>
                 <div class="brand-name"><?= htmlspecialchars($meta['app_name']) ?></div>
             </a>
-            <div class="nav-actions">
-                <a href="admin.php" class="admin-link">
-                    <svg style="vertical-align: middle; margin-right: 4px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
-                    </svg>
-                    Admin Upload
-                </a>
-            </div>
-        </nav>
+            <a href="admin.php" class="admin-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                </svg>
+                Admin Upload
+            </a>
+        </div>
+    </nav>
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-left">
+    <div class="container">
+        <!-- Hero Box -->
+        <section class="hero-box">
+            <div>
                 <div class="badge-verified">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -535,18 +559,18 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
                     </svg>
                     Official & Verified Release
                 </div>
-                
-                <h1>Get the Official <br><span class="gradient-text"><?= htmlspecialchars($meta['app_name']) ?></span> App</h1>
-                <p class="hero-desc"><?= htmlspecialchars(APP_TAGLINE) ?>. Instant rides, transparent fares, and 24/7 support.</p>
 
-                <!-- Metadata pills -->
+                <h1>Download <span class="app-highlight"><?= htmlspecialchars($meta['app_name']) ?></span> for Android</h1>
+                <p class="hero-desc"><?= htmlspecialchars(APP_TAGLINE) ?></p>
+
+                <!-- Compact Metadata Grid -->
                 <div class="meta-grid">
                     <div class="meta-pill">
                         <span class="label">Version</span>
                         <span class="value">v<?= htmlspecialchars($meta['version_name']) ?></span>
                     </div>
                     <div class="meta-pill">
-                        <span class="label">File Size</span>
+                        <span class="label">Size</span>
                         <span class="value"><?= $formattedSize ?></span>
                     </div>
                     <div class="meta-pill">
@@ -559,11 +583,11 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
                     </div>
                 </div>
 
-                <!-- Download Actions -->
-                <div class="download-actions">
+                <!-- Actions -->
+                <div class="actions-group">
                     <?php if ($isAvailable): ?>
                         <a href="download.php" class="btn-download" id="downloadBtn">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 <polyline points="7 10 12 15 17 10"></polyline>
                                 <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -577,11 +601,11 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
                         </button>
                     <?php endif; ?>
 
-                    <!-- Permanent Copy Link Bar -->
+                    <!-- Copy Permanent URL -->
                     <div class="copy-link-box">
                         <span class="copy-link-text" id="permanentUrl"><?= htmlspecialchars($downloadUrl) ?></span>
                         <button class="btn-copy" onclick="copyPermanentLink()">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
                                 <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
                             </svg>
@@ -591,56 +615,53 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
                 </div>
             </div>
 
-            <!-- Hero Right Card (QR Code & Quick Mobile Scan) -->
-            <div class="hero-card">
+            <!-- Right QR Code Scan Box -->
+            <div class="qr-card">
                 <div class="qr-wrapper">
                     <div id="qrcode"></div>
                 </div>
-                <div class="qr-caption">Scan with Phone Camera</div>
-                <div class="qr-sub">Instantly opens the download link on your mobile device</div>
+                <div class="qr-title">Scan to Download</div>
+                <div class="qr-desc">Scan with mobile camera to download directly</div>
             </div>
         </section>
 
-        <!-- Installation Guide Section -->
-        <h2 class="section-title">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Installation Steps (Compact) -->
+        <div class="section-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
                 <line x1="12" y1="18" x2="12.01" y2="18"></line>
             </svg>
-            How to Install on Android
-        </h2>
+            Installation Guide
+        </div>
 
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-num">1</div>
-                <h3>Download the APK</h3>
-                <p>Click the <strong>Download APK</strong> button above or scan the QR code to save the file to your Android phone.</p>
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-badge">1</div>
+                <h4>Download APK</h4>
+                <p>Click Download or scan the QR code to save <strong><?= htmlspecialchars(DOWNLOAD_FILENAME) ?></strong> to your device.</p>
             </div>
-            <div class="step-card">
-                <div class="step-num">2</div>
-                <h3>Allow Unknown Sources</h3>
-                <p>If prompted by your browser or Android system, allow <em>"Install unknown apps"</em> for your browser or file manager.</p>
+            <div class="step-item">
+                <div class="step-badge">2</div>
+                <h4>Allow Installation</h4>
+                <p>If prompted by Android, permit <em>"Install unknown apps"</em> in your browser or file manager settings.</p>
             </div>
-            <div class="step-card">
-                <div class="step-num">3</div>
-                <h3>Tap Install & Launch</h3>
-                <p>Open your notification shade or Downloads folder, tap <strong><?= htmlspecialchars(DOWNLOAD_FILENAME) ?></strong> and press Install.</p>
+            <div class="step-item">
+                <div class="step-badge">3</div>
+                <h4>Install & Open</h4>
+                <p>Open the downloaded APK from Notifications or Downloads folder and tap <strong>Install</strong>.</p>
             </div>
         </div>
 
-        <!-- Changelog Section -->
-        <div class="changelog-box">
-            <div class="changelog-header">
-                <div>
-                    <h3 style="font-size: 18px; font-weight: 700;">What's New in Version <?= htmlspecialchars($meta['version_name']) ?></h3>
-                    <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Released on <?= $releaseDate ?></div>
-                </div>
-                <span class="badge-verified" style="margin-bottom: 0;">Verified Build</span>
+        <!-- Changelog Card -->
+        <div class="info-card">
+            <div class="info-header">
+                <span class="info-title">Release Notes (v<?= htmlspecialchars($meta['version_name']) ?>)</span>
+                <span class="info-date">Updated: <?= $releaseDate ?></span>
             </div>
             <div class="changelog-text"><?= htmlspecialchars($meta['changelog']) ?></div>
             <?php if (!empty($meta['file_hash_sha256'])): ?>
-                <div style="margin-top: 20px; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted); background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 8px; word-break: break-all;">
-                    <span style="color: #64748b; font-weight: 600;">SHA-256 Checksum: </span><?= htmlspecialchars($meta['file_hash_sha256']) ?>
+                <div class="hash-bar">
+                    <strong>SHA-256: </strong><?= htmlspecialchars($meta['file_hash_sha256']) ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -648,25 +669,20 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         <!-- Footer -->
         <footer>
             <div>© <?= date('Y') ?> <?= htmlspecialchars($meta['app_name']) ?>. All rights reserved.</div>
-            <div>Permanent Distribution Endpoint • No DB Required</div>
+            <div>Permanent Distribution Link • No Database Required</div>
         </footer>
     </div>
 
-    <!-- Copy Toast -->
-    <div id="toast">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span>Download link copied to clipboard!</span>
-    </div>
+    <!-- Toast Notification -->
+    <div id="toast">Download link copied!</div>
 
     <script>
         // Generate QR code for mobile scanning
         const downloadUrl = "<?= $downloadUrl ?>";
         new QRCode(document.getElementById("qrcode"), {
             text: downloadUrl,
-            width: 170,
-            height: 170,
+            width: 130,
+            height: 130,
             colorDark : "#0f172a",
             colorLight : "#ffffff",
             correctLevel : QRCode.CorrectLevel.M
@@ -675,26 +691,25 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         // Copy permanent link to clipboard
         function copyPermanentLink() {
             navigator.clipboard.writeText(downloadUrl).then(() => {
-                showToast("Permanent download URL copied!");
+                showToast("Download link copied to clipboard!");
             }).catch(() => {
-                // Fallback
                 const input = document.createElement('input');
                 input.value = downloadUrl;
                 document.body.appendChild(input);
                 input.select();
                 document.execCommand('copy');
                 document.body.removeChild(input);
-                showToast("Permanent download URL copied!");
+                showToast("Download link copied to clipboard!");
             });
         }
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
-            if (msg) toast.querySelector('span').innerText = msg;
+            if (msg) toast.innerText = msg;
             toast.classList.add('show');
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 2500);
+            }, 2200);
         }
     </script>
 </body>
