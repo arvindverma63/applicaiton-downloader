@@ -1,0 +1,33 @@
+# Enable MIME type for Android APK files
+AddType application/vnd.android.package-archive .apk
+
+# Increase upload and execution limits for large APK files (Apache mod_php)
+<IfModule mod_php.c>
+    php_value upload_max_filesize 250M
+    php_value post_max_size 255M
+    php_value memory_limit 256M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
+
+<IfModule mod_php7.c>
+    php_value upload_max_filesize 250M
+    php_value post_max_size 255M
+    php_value memory_limit 256M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
+
+<IfModule mod_php8.c>
+    php_value upload_max_filesize 250M
+    php_value post_max_size 255M
+    php_value memory_limit 256M
+    php_value max_execution_time 300
+    php_value max_input_time 300
+</IfModule>
+
+# Prevent directory browsing
+Options -Indexes
+
+# UTF-8 Encoding
+AddDefaultCharset UTF-8

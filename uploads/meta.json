@@ -1,0 +1,12 @@
+{
+    "app_name": "Red Taxis",
+    "version_name": "1.2.0",
+    "version_code": "12",
+    "min_android": "Android 7.0+",
+    "changelog": "Brand new UI, ride tracking, and bug fixes.",
+    "upload_time": 1789460425,
+    "file_size": 42,
+    "file_hash_sha256": "",
+    "download_count": 1,
+    "package_name": "com.redtaxis.customer"
+}

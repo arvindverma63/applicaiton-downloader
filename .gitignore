@@ -1,0 +1,8 @@
+# Ignore APK binary files in uploads (to prevent exceeding git limits)
+uploads/*.apk
+*.apk
+
+# Environment / OS files
+.DS_Store
+Thumbs.db
+*.log
