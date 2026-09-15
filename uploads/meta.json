@@ -4,9 +4,9 @@
     "version_code": "12",
     "min_android": "Android 7.0+",
     "changelog": "Brand new UI, ride tracking, and bug fixes.",
-    "upload_time": 1789460425,
-    "file_size": 42,
-    "file_hash_sha256": "",
-    "download_count": 1,
+    "upload_time": 1789460966,
+    "file_size": 59488229,
+    "file_hash_sha256": "2925da78921ca8a70cd44c870b19b3f1544d77aecf261e6dd4249a78898ef316",
+    "download_count": 3,
     "package_name": "com.redtaxis.customer"
 }

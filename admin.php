@@ -2,7 +2,7 @@
 /**
  * Red Taxis App - Admin APK Upload & Management Portal
  * -------------------------------------------------------------------------
- * Light, compact, responsive, and professional UI using Roboto.
+ * Ultra-responsive, compact, and high-performance management panel.
  */
 
 require_once __DIR__ . '/config.php';
@@ -126,7 +126,7 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Admin Portal - <?= htmlspecialchars(APP_NAME) ?> APK Manager</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -145,70 +145,98 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             --text-sub: #64748b;
             --accent-green: #059669;
             --green-light: #ecfdf5;
+            --green-border: #a7f3d0;
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+            --radius-sm: 6px;
             --radius-md: 10px;
             --radius-lg: 14px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
-            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background-color: var(--bg-page);
             color: var(--text-main);
             min-height: 100vh;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
+            width: 100%;
             max-width: 920px;
-            margin: 0 auto;
-            padding: 0 16px 40px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: clamp(12px, 3.5vw, 20px);
+            padding-right: clamp(12px, 3.5vw, 20px);
+        }
+
+        .main-wrapper {
+            flex: 1;
+            padding-bottom: clamp(24px, 4vw, 40px);
         }
 
         /* Top Nav */
         header {
-            padding: 12px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: clamp(10px, 2vw, 14px) 0;
             border-bottom: 1px solid var(--border-color);
             background: #ffffff;
-            margin-bottom: 24px;
+            margin-bottom: clamp(16px, 3vw, 24px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
-            padding-bottom: 0;
-            margin-bottom: 0;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 10px);
             text-decoration: none;
             color: var(--text-main);
+            min-width: 0;
         }
 
         .brand-icon {
-            width: 32px;
-            height: 32px;
+            width: clamp(30px, 4.5vw, 34px);
+            height: clamp(30px, 4.5vw, 34px);
             background: linear-gradient(135deg, #dc2626, #991b1b);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .brand-icon svg {
+            width: 18px;
+            height: 18px;
         }
 
         .brand-title {
             font-weight: 700;
-            font-size: 16px;
+            font-size: clamp(14.5px, 3vw, 16px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .brand-badge {
@@ -218,28 +246,33 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: 600;
-            margin-left: 6px;
+            margin-left: 4px;
             border: 1px solid var(--primary-border);
+            vertical-align: middle;
         }
 
         .header-actions {
             display: flex;
-            gap: 8px;
+            align-items: center;
+            gap: clamp(6px, 1.5vw, 8px);
+            flex-wrap: wrap;
         }
 
         .btn-outline {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 12px;
+            font-size: clamp(11.5px, 2.2vw, 12.5px);
             font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 6px clamp(8px, 2vw, 12px);
+            border-radius: var(--radius-sm);
             border: 1px solid var(--border-color);
             background: #ffffff;
-            transition: all 0.15s;
+            transition: all 0.15s ease;
             display: inline-flex;
             align-items: center;
             gap: 5px;
+            touch-action: manipulation;
+            min-height: 32px;
         }
 
         .btn-outline:hover {
@@ -261,19 +294,19 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
 
         /* Login Card */
         .login-wrap {
-            max-width: 380px;
-            margin: 40px auto;
+            width: min(100%, 380px);
+            margin: clamp(24px, 6vw, 48px) auto;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 28px 24px;
+            padding: clamp(20px, 5vw, 32px) clamp(16px, 4vw, 24px);
             box-shadow: var(--shadow-sm);
             text-align: center;
         }
 
         .login-icon {
-            width: 48px;
-            height: 48px;
+            width: clamp(44px, 8vw, 48px);
+            height: clamp(44px, 8vw, 48px);
             background: var(--primary-light);
             color: var(--primary);
             border-radius: 12px;
@@ -288,34 +321,35 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         .alert {
             padding: 10px 14px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: clamp(12px, 2.5vw, 13px);
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
+            word-break: break-word;
         }
 
         .alert-error {
             background: #fef2f2;
             color: #b91c1c;
-            border: 1px solid #fca5a5;
+            border: 1px solid var(--primary-border);
         }
 
         .alert-success {
-            background: #ecfdf5;
+            background: var(--green-light);
             color: #047857;
-            border: 1px solid #a7f3d0;
+            border: 1px solid var(--green-border);
         }
 
-        /* Compact Stats Grid */
+        /* Ultra-Responsive Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: clamp(8px, 1.8vw, 12px);
+            margin-bottom: clamp(16px, 3vw, 20px);
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 480px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -325,16 +359,17 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 14px;
+            padding: clamp(10px, 2.5vw, 14px);
             box-shadow: var(--shadow-sm);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: clamp(8px, 2vw, 12px);
+            min-width: 0;
         }
 
         .stat-icon {
-            width: 36px;
-            height: 36px;
+            width: clamp(32px, 5vw, 36px);
+            height: clamp(32px, 5vw, 36px);
             border-radius: 8px;
             background: #f1f5f9;
             display: flex;
@@ -348,18 +383,22 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            min-width: 0;
         }
 
         .stat-label {
-            font-size: 11px;
+            font-size: 10.5px;
             color: var(--text-sub);
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 0.3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .stat-val {
-            font-size: 15px;
+            font-size: clamp(13px, 3vw, 15.5px);
             font-weight: 700;
             color: #0f172a;
             white-space: nowrap;
@@ -372,8 +411,8 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 16px;
-            margin-bottom: 20px;
+            padding: clamp(12px, 3vw, 18px);
+            margin-bottom: clamp(16px, 3vw, 20px);
             box-shadow: var(--shadow-sm);
         }
 
@@ -381,11 +420,13 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 8px;
             margin-bottom: 8px;
+            flex-wrap: wrap;
         }
 
         .dist-title {
-            font-size: 14px;
+            font-size: clamp(13px, 2.5vw, 14px);
             font-weight: 700;
             color: #0f172a;
             display: flex;
@@ -393,10 +434,15 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             gap: 6px;
         }
 
+        .dist-title svg {
+            flex-shrink: 0;
+        }
+
         .dist-desc {
-            font-size: 12px;
+            font-size: clamp(11.5px, 2.2vw, 12px);
             color: var(--text-muted);
             margin-bottom: 10px;
+            line-height: 1.5;
         }
 
         .link-row {
@@ -407,16 +453,19 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             border-radius: 8px;
             padding: 4px 6px 4px 10px;
             gap: 8px;
+            min-width: 0;
         }
 
         .link-row .url {
             font-family: 'Roboto Mono', monospace;
-            font-size: 12px;
+            font-size: clamp(11px, 2.2vw, 12px);
             color: var(--text-muted);
             flex-grow: 1;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            user-select: all;
+            min-width: 0;
         }
 
         .btn-copy-sm {
@@ -428,8 +477,10 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             font-size: 12px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.15s ease;
             flex-shrink: 0;
+            touch-action: manipulation;
+            min-height: 30px;
         }
 
         .btn-copy-sm:hover {
@@ -437,33 +488,39 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             border-color: #cbd5e1;
         }
 
+        .btn-copy-sm.copied {
+            background: var(--green-light);
+            border-color: var(--green-border);
+            color: var(--accent-green);
+        }
+
         /* Upload Portal Card */
         .upload-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
-            padding: 24px;
+            padding: clamp(16px, 3.5vw, 24px);
             box-shadow: var(--shadow-sm);
         }
 
         .upload-title {
-            font-size: 17px;
+            font-size: clamp(15.5px, 3.2vw, 17.5px);
             font-weight: 700;
             color: #0f172a;
             margin-bottom: 4px;
         }
 
         .upload-subtitle {
-            font-size: 13px;
+            font-size: clamp(12px, 2.5vw, 13px);
             color: var(--text-muted);
-            margin-bottom: 18px;
+            margin-bottom: clamp(14px, 3vw, 20px);
         }
 
         /* Compact Drop Zone */
         .dropzone {
             border: 2px dashed #cbd5e1;
             border-radius: var(--radius-md);
-            padding: 24px 16px;
+            padding: clamp(18px, 4vw, 26px) 16px;
             text-align: center;
             cursor: pointer;
             background: #f8fafc;
@@ -489,8 +546,8 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         }
 
         .drop-icon {
-            width: 40px;
-            height: 40px;
+            width: clamp(36px, 6vw, 42px);
+            height: clamp(36px, 6vw, 42px);
             background: #ffffff;
             color: var(--primary);
             border: 1px solid var(--border-color);
@@ -503,52 +560,62 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         }
 
         .drop-title {
-            font-size: 14px;
+            font-size: clamp(13px, 2.5vw, 14px);
             font-weight: 600;
             color: #0f172a;
             margin-bottom: 2px;
         }
 
         .drop-sub {
-            font-size: 12px;
+            font-size: clamp(11px, 2.2vw, 12px);
             color: var(--text-sub);
         }
 
         .file-selected-box {
             display: none;
             background: var(--green-light);
-            border: 1px solid #a7f3d0;
+            border: 1px solid var(--green-border);
             border-radius: 8px;
             padding: 10px 14px;
             margin-bottom: 18px;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .file-selected-info {
             display: flex;
             align-items: center;
             gap: 10px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .file-selected-info svg {
+            flex-shrink: 0;
+        }
+
+        .file-selected-names {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Form Controls */
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(10px, 2.5vw, 14px);
             margin-bottom: 14px;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 5px;
+            min-width: 0;
         }
 
         .form-group.full {
@@ -557,7 +624,7 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         }
 
         label {
-            font-size: 12px;
+            font-size: clamp(11.5px, 2.2vw, 12px);
             font-weight: 600;
             color: var(--text-muted);
         }
@@ -568,12 +635,12 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 9px 12px;
+            padding: clamp(8px, 2vw, 10px) 12px;
             color: var(--text-main);
-            font-size: 13px;
+            font-size: clamp(12.5px, 2.5vw, 13px);
             font-family: inherit;
             outline: none;
-            transition: border-color 0.15s;
+            transition: border-color 0.15s, box-shadow 0.15s;
             width: 100%;
         }
 
@@ -586,34 +653,42 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
 
         textarea {
             resize: vertical;
-            min-height: 70px;
+            min-height: 75px;
+            line-height: 1.5;
         }
 
         .btn-submit {
             background: var(--primary);
             color: #ffffff;
             border: none;
-            padding: 11px 20px;
+            padding: clamp(11px, 2.5vw, 13px) 20px;
             border-radius: var(--radius-md);
-            font-size: 14px;
+            font-size: clamp(13.5px, 2.8vw, 14.5px);
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.15s;
+            transition: background 0.15s, transform 0.1s;
             width: 100%;
             box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
+            min-height: 44px;
+            touch-action: manipulation;
         }
 
         .btn-submit:hover {
             background: var(--primary-hover);
         }
 
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
         .btn-submit:disabled {
             opacity: 0.65;
             cursor: not-allowed;
+            transform: none;
         }
 
         /* Progress Bar */
@@ -633,6 +708,7 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
             font-weight: 600;
             color: var(--text-muted);
             margin-bottom: 6px;
+            gap: 8px;
         }
 
         .progress-track {
@@ -653,20 +729,22 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         /* Toast */
         #toast {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: clamp(16px, 3vw, 24px);
+            right: clamp(16px, 3vw, 24px);
             background: #0f172a;
             color: #ffffff;
             padding: 10px 18px;
             border-radius: 8px;
-            box-shadow: var(--shadow-md);
-            font-size: 13px;
+            box-shadow: var(--shadow-lg);
+            font-size: clamp(12px, 2.5vw, 13px);
             font-weight: 500;
             opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.2s;
+            transform: translateY(12px);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
             z-index: 1000;
+            max-width: calc(100vw - 32px);
+            word-break: break-word;
         }
 
         #toast.show {
@@ -682,7 +760,7 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
         <div class="container">
             <a href="index.php" class="brand">
                 <div class="brand-icon">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
                         <circle cx="7" cy="17" r="2"></circle>
                         <path d="M9 17h6"></path>
@@ -701,7 +779,7 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
-                    View App Page
+                    <span>View App Page</span>
                 </a>
                 <?php if ($isAuth): ?>
                     <a href="admin.php?action=logout" class="btn-outline btn-logout">
@@ -710,247 +788,275 @@ $releaseDate = !empty($meta['upload_time']) ? date('M d, Y - h:i A', $meta['uplo
                             <polyline points="16 17 21 12 16 7"></polyline>
                             <line x1="21" y1="12" x2="9" y2="12"></line>
                         </svg>
-                        Logout
+                        <span>Logout</span>
                     </a>
                 <?php endif; ?>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <?php if (!$isAuth): ?>
-            <!-- Login Box -->
-            <div class="login-wrap">
-                <div class="login-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                    </svg>
+    <div class="main-wrapper">
+        <div class="container">
+            <?php if (!$isAuth): ?>
+                <!-- Login Box -->
+                <div class="login-wrap">
+                    <div class="login-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #0f172a;">Admin Authentication</h2>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 18px;">Enter administrator passcode to manage APK builds.</p>
+
+                    <?php if ($error): ?>
+                        <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
+                    <?php endif; ?>
+
+                    <form method="POST" action="admin.php">
+                        <input type="hidden" name="action" value="login">
+                        <div class="form-group" style="margin-bottom: 16px; text-align: left;">
+                            <label for="password">Passcode / PIN</label>
+                            <input type="password" id="password" name="password" placeholder="Enter admin password..." required autofocus>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <span>Unlock Panel</span>
+                        </button>
+                    </form>
                 </div>
-                <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 4px; color: #0f172a;">Admin Authentication</h2>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 18px;">Enter administrator passcode to manage APK builds.</p>
+
+            <?php else: ?>
+                <!-- Admin Dashboard -->
 
                 <?php if ($error): ?>
                     <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
                 <?php endif; ?>
 
-                <form method="POST" action="admin.php">
-                    <input type="hidden" name="action" value="login">
-                    <div class="form-group" style="margin-bottom: 16px; text-align: left;">
-                        <label for="password">Passcode / PIN</label>
-                        <input type="password" id="password" name="password" placeholder="Enter admin password..." required autofocus>
+                <?php if ($success): ?>
+                    <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
+                <?php endif; ?>
+
+                <div id="dynamicAlert" style="display:none;" class="alert"></div>
+
+                <!-- Compact Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Active Version</span>
+                            <span class="stat-val" id="displayVersion">v<?= htmlspecialchars($meta['version_name']) ?></span>
+                        </div>
                     </div>
-                    <button type="submit" class="btn-submit">
-                        <span>Unlock Panel</span>
-                    </button>
-                </form>
-            </div>
 
-        <?php else: ?>
-            <!-- Admin Dashboard -->
-
-            <?php if ($error): ?>
-                <div class="alert alert-error"><?= htmlspecialchars($error) ?></div>
-            <?php endif; ?>
-
-            <?php if ($success): ?>
-                <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
-            <?php endif; ?>
-
-            <div id="dynamicAlert" style="display:none;" class="alert"></div>
-
-            <!-- Compact Stats -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                            <polyline points="2 17 12 22 22 17"></polyline>
-                            <polyline points="2 12 12 17 22 12"></polyline>
-                        </svg>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Downloads</span>
+                            <span class="stat-val"><?= number_format($meta['download_count']) ?></span>
+                        </div>
                     </div>
-                    <div class="stat-content">
-                        <span class="stat-label">Active Version</span>
-                        <span class="stat-val" id="displayVersion">v<?= htmlspecialchars($meta['version_name']) ?></span>
-                    </div>
-                </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 14 14"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">APK Size</span>
+                            <span class="stat-val" id="displaySize"><?= $formattedSize ?></span>
+                        </div>
                     </div>
-                    <div class="stat-content">
-                        <span class="stat-label">Downloads</span>
-                        <span class="stat-val"><?= number_format($meta['download_count']) ?></span>
-                    </div>
-                </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 14 14"></polyline>
-                        </svg>
-                    </div>
-                    <div class="stat-content">
-                        <span class="stat-label">APK Size</span>
-                        <span class="stat-val" id="displaySize"><?= $formattedSize ?></span>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Status</span>
+                            <span class="stat-val" style="color: <?= $isAvailable ? 'var(--accent-green)' : '#dc2626' ?>;">
+                                <?= $isAvailable ? 'Active' : 'No APK' ?>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
+                <!-- Permanent Link Card -->
+                <div class="dist-card">
+                    <div class="dist-header">
+                        <div class="dist-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                            </svg>
+                            Permanent Unchanging Download Link
+                        </div>
+                        <a href="download.php" target="_blank" class="btn-outline" style="font-size: 11px; padding: 4px 10px;">
+                            Test Download ↗
+                        </a>
                     </div>
-                    <div class="stat-content">
-                        <span class="stat-label">Status</span>
-                        <span class="stat-val" style="color: <?= $isAvailable ? 'var(--accent-green)' : '#dc2626' ?>;">
-                            <?= $isAvailable ? 'Active' : 'No APK' ?>
-                        </span>
+                    <div class="dist-desc">
+                        Share this fixed link with users. When you upload a new APK below, it replaces the active build while keeping this exact URL.
+                    </div>
+                    <div class="link-row">
+                        <span class="url" id="permLink"><?= htmlspecialchars($downloadUrl) ?></span>
+                        <button class="btn-copy-sm" id="btnCopyDist" onclick="copyToClipboard('<?= htmlspecialchars($downloadUrl) ?>', 'Link copied!', this)">Copy URL</button>
                     </div>
                 </div>
-            </div>
 
-            <!-- Permanent Link Card -->
-            <div class="dist-card">
-                <div class="dist-header">
-                    <div class="dist-title">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                        </svg>
-                        Permanent Unchanging Download Link
-                    </div>
-                    <a href="download.php" target="_blank" class="btn-outline" style="font-size: 11px; padding: 3px 8px;">
-                        Test Download ↗
-                    </a>
-                </div>
-                <div class="dist-desc">
-                    Share this fixed link with users. When you upload a new APK below, it replaces the active build while keeping this exact URL.
-                </div>
-                <div class="link-row">
-                    <span class="url" id="permLink"><?= htmlspecialchars($downloadUrl) ?></span>
-                    <button class="btn-copy-sm" onclick="copyToClipboard('<?= htmlspecialchars($downloadUrl) ?>', 'Link copied!')">Copy URL</button>
-                </div>
-            </div>
+                <!-- Upload Form -->
+                <div class="upload-card">
+                    <h2 class="upload-title">Upload New Application Build (.apk)</h2>
+                    <p class="upload-subtitle">Uploading a build automatically updates the permanent download endpoint.</p>
 
-            <!-- Upload Form -->
-            <div class="upload-card">
-                <h2 class="upload-title">Upload New Application Build (.apk)</h2>
-                <p class="upload-subtitle">Uploading a build automatically updates the permanent download endpoint.</p>
+                    <form id="uploadForm" method="POST" action="admin.php" enctype="multipart/form-data">
+                        <input type="hidden" name="action" value="upload_apk">
 
-                <form id="uploadForm" method="POST" action="admin.php" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="upload_apk">
+                        <!-- Compact Dropzone -->
+                        <div class="dropzone" id="dropzone">
+                            <input type="file" name="apk_file" id="apkFile" accept=".apk" required>
+                            <div class="drop-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                            </div>
+                            <div class="drop-title">Drag & drop .apk file here or tap to browse</div>
+                            <div class="drop-sub">Max upload size: <?= MAX_UPLOAD_SIZE_MB ?>MB</div>
+                        </div>
 
-                    <!-- Compact Dropzone -->
-                    <div class="dropzone" id="dropzone">
-                        <input type="file" name="apk_file" id="apkFile" accept=".apk" required>
-                        <div class="drop-icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Selected File State -->
+                        <div class="file-selected-box" id="fileSelectedBox">
+                            <div class="file-selected-info">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <div class="file-selected-names">
+                                    <strong id="selectedFileName" style="color: #0f172a; font-size: 13px;">app.apk</strong>
+                                    <span id="selectedFileSize" style="color: var(--text-sub); font-size: 11px; margin-left: 6px;">24.5 MB</span>
+                                </div>
+                            </div>
+                            <span style="font-size: 11px; color: var(--accent-green); font-weight: 700; white-space: nowrap;">Ready to upload</span>
+                        </div>
+
+                        <!-- Metadata Grid -->
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="version_name">Version Name (e.g. 1.2.0)</label>
+                                <input type="text" id="version_name" name="version_name" value="<?= htmlspecialchars($meta['version_name']) ?>" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="version_code">Version Code (e.g. 2)</label>
+                                <input type="text" id="version_code" name="version_code" value="<?= htmlspecialchars($meta['version_code']) ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="min_android">Minimum Android</label>
+                                <input type="text" id="min_android" name="min_android" value="<?= htmlspecialchars($meta['min_android']) ?>">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="package_name">App Package</label>
+                                <input type="text" id="package_name" name="package_name" value="<?= htmlspecialchars($meta['package_name']) ?>" readonly style="background: #f1f5f9; color: var(--text-sub);">
+                            </div>
+                        </div>
+
+                        <div class="form-group full">
+                            <label for="changelog">What's New / Release Notes</label>
+                            <textarea id="changelog" name="changelog" placeholder="Enter release highlights..."><?= htmlspecialchars($meta['changelog']) ?></textarea>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn-submit">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 <polyline points="17 8 12 3 7 8"></polyline>
                                 <line x1="12" y1="3" x2="12" y2="15"></line>
                             </svg>
-                        </div>
-                        <div class="drop-title">Drag & drop .apk file here or click to browse</div>
-                        <div class="drop-sub">Max upload size: <?= MAX_UPLOAD_SIZE_MB ?>MB</div>
-                    </div>
+                            <span>Upload & Deploy APK</span>
+                        </button>
 
-                    <!-- Selected File State -->
-                    <div class="file-selected-box" id="fileSelectedBox">
-                        <div class="file-selected-info">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <div>
-                                <strong id="selectedFileName" style="color: #0f172a; font-size: 13px;">app.apk</strong>
-                                <span id="selectedFileSize" style="color: var(--text-sub); font-size: 11px; margin-left: 6px;">24.5 MB</span>
+                        <!-- Progress Bar -->
+                        <div class="progress-container" id="progressContainer">
+                            <div class="progress-header">
+                                <span id="progressStatus">Uploading APK...</span>
+                                <span id="progressPercent">0%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" id="progressFill"></div>
                             </div>
                         </div>
-                        <span style="font-size: 11px; color: var(--accent-green); font-weight: 700;">Ready to upload</span>
-                    </div>
+                    </form>
+                </div>
 
-                    <!-- Metadata Grid -->
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="version_name">Version Name (e.g. 1.2.0)</label>
-                            <input type="text" id="version_name" name="version_name" value="<?= htmlspecialchars($meta['version_name']) ?>" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="version_code">Version Code (e.g. 2)</label>
-                            <input type="text" id="version_code" name="version_code" value="<?= htmlspecialchars($meta['version_code']) ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="min_android">Minimum Android</label>
-                            <input type="text" id="min_android" name="min_android" value="<?= htmlspecialchars($meta['min_android']) ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="package_name">App Package</label>
-                            <input type="text" id="package_name" name="package_name" value="<?= htmlspecialchars($meta['package_name']) ?>" readonly style="background: #f1f5f9; color: var(--text-sub);">
-                        </div>
-                    </div>
-
-                    <div class="form-group full">
-                        <label for="changelog">What's New / Release Notes</label>
-                        <textarea id="changelog" name="changelog" placeholder="Enter release highlights..."><?= htmlspecialchars($meta['changelog']) ?></textarea>
-                    </div>
-
-                    <button type="submit" id="submitBtn" class="btn-submit">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="17 8 12 3 7 8"></polyline>
-                            <line x1="12" y1="3" x2="12" y2="15"></line>
-                        </svg>
-                        <span>Upload & Deploy APK</span>
-                    </button>
-
-                    <!-- Progress Bar -->
-                    <div class="progress-container" id="progressContainer">
-                        <div class="progress-header">
-                            <span id="progressStatus">Uploading APK...</span>
-                            <span id="progressPercent">0%</span>
-                        </div>
-                        <div class="progress-track">
-                            <div class="progress-fill" id="progressFill"></div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>
     </div>
 
     <div id="toast"></div>
 
     <script>
-        function copyToClipboard(text, msg) {
-            navigator.clipboard.writeText(text).then(() => {
+        function copyToClipboard(text, msg, btnEl) {
+            const onSuccess = () => {
                 showToast(msg || "Copied to clipboard!");
-            }).catch(() => {
-                const el = document.createElement('textarea');
-                el.value = text;
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-                showToast(msg || "Copied to clipboard!");
-            });
+                if (btnEl) {
+                    btnEl.classList.add('copied');
+                    const orig = btnEl.textContent;
+                    btnEl.textContent = 'Copied!';
+                    setTimeout(() => {
+                        btnEl.classList.remove('copied');
+                        btnEl.textContent = orig;
+                    }, 2000);
+                }
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(onSuccess).catch(() => fallbackCopy(text, onSuccess));
+            } else {
+                fallbackCopy(text, onSuccess);
+            }
         }
 
+        function fallbackCopy(text, callback) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            el.style.position = 'fixed';
+            el.style.opacity = '0';
+            document.body.appendChild(el);
+            el.select();
+            try {
+                document.execCommand('copy');
+                if (callback) callback();
+            } catch(e) {
+                showToast("Failed to copy.");
+            }
+            document.body.removeChild(el);
+        }
+
+        let toastTimer = null;
         function showToast(msg) {
             const toast = document.getElementById('toast');
+            if (!toast) return;
             toast.innerText = msg;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2200);
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
         }
 
         <?php if ($isAuth): ?>
